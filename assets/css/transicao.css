@@ -1,0 +1,106 @@
+/* ============================================================
+   Transição entre páginas
+
+   O header fica de pé; a área abaixo dele vira uma tela em branco
+   com reticências digitando. A duração vem do peso do HTML de
+   destino (2s para as páginas leves, 4s para as pesadas) e é
+   calculada em assets/js/transicao.js.
+
+   Sem JS a classe `transicao-ativa` nunca chega ao <html> e nada
+   disso aparece — a página abre inteira, como no resto do site.
+
+   Este arquivo carrega DEPOIS de home.css / sobre.css, então usa
+   os tokens de lá (--paper, --ink, --pad, --ease, --topbar-h) e
+   vence por ordem de origem onde precisa.
+   ============================================================ */
+
+:root{
+  --transicao-entrada:220ms;
+  --transicao-saida:420ms;
+}
+
+/* ---------- a tela ---------- */
+.transicao{
+  position:fixed;
+  top:var(--topbar-h, 96px);
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:45;              /* abaixo da topbar (50), acima do conteúdo */
+  display:none;
+  opacity:0;
+  background:var(--paper);
+  transition:opacity var(--transicao-entrada) linear;
+}
+.transicao-ativa .transicao{ display:block; }
+.transicao-ativa .transicao.is-visivel{ opacity:1; }
+
+/* Chegada: a tela já estava de pé na página anterior. Entra opaca,
+   sem fade, senão pisca o conteúdo novo entre um documento e outro. */
+.transicao-imediata .transicao{
+  opacity:1;
+  transition:none;
+}
+
+/* Saída — especificidade maior que a regra de chegada, de propósito */
+.transicao-ativa .transicao.is-saindo{
+  opacity:0;
+  transition:opacity var(--transicao-saida) var(--ease, ease);
+}
+
+/* ---------- o header durante a transição ---------- */
+/* A topbar se esconde sozinha ao rolar. Durante a transição ela fica,
+   e sem deslizar: o slide de 380ms deixaria aparecer uma faixa de
+   conteúdo entre o header e o topo da tela em branco. */
+.transicao-ativa .topbar{ transition:none; }
+.transicao-ativa .topbar.is-hidden{ transform:none; }
+
+/* ---------- rolagem travada enquanto a tela está de pé ---------- */
+.transicao-ativa,
+.transicao-ativa body{ overflow:hidden; }
+
+/* ---------- as reticências ---------- */
+.transicao__inner{
+  max-width:1440px;
+  height:100%;
+  margin:0 auto;
+  padding:0 var(--pad);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.transicao__dots{
+  margin:0;
+  font-size:clamp(44px, 8vw, 110px);
+  font-weight:300;
+  line-height:1;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  white-space:nowrap;
+}
+
+/* Centralizado, o bloco se recentraria a cada ponto digitado e
+   escorregaria para a esquerda durante o ciclo. Reservando a largura
+   das três reticências, ele fica parado e os pontos crescem sozinhos. */
+[data-transicao-texto]{
+  display:inline-block;
+  min-width:0.78em;
+  text-align:left;
+}
+
+/* ---------- acessibilidade ---------- */
+.transicao__sr{
+  position:absolute;
+  width:1px; height:1px;
+  margin:-1px; padding:0;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  clip-path:inset(50%);
+  white-space:nowrap;
+  border:0;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .transicao{ display:none !important; }
+}

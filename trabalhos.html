@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trabalhos, Leonardo Silva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/trabalhos.css">
+<link rel="stylesheet" href="assets/css/transicao.css">
+<script>
+/* Sobe a tela de transição antes do primeiro quadro, quando a página
+   anterior deixou o recado na sessão. Precisa ser inline e síncrono:
+   um arquivo externo chegaria depois do conteúdo já ter piscado. */
+(function(){
+  try{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var bruto = sessionStorage.getItem('transicao');
+    if(!bruto) return;
+    sessionStorage.removeItem('transicao');
+    var d = JSON.parse(bruto);
+    if(!d || !d.inicio || Date.now() - d.inicio > d.duracao + 6000) return;
+    if(d.topbar) document.documentElement.style.setProperty('--topbar-h', d.topbar + 'px');
+    document.documentElement.classList.add('transicao-ativa', 'transicao-imediata');
+    window.__transicao = d;
+  }catch(e){}
+})();
+</script>
+<script src="assets/js/transicao.js" defer></script>
+</head>
+<body>
+
+  <header class="topbar" data-topbar>
+    <div class="topbar__inner">
+      <a class="monogram" href="index.html" aria-label="Leonardo Alves da Silva — início">LAS</a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="trabalhos.html" aria-current="page">Trabalhos</a>
+        <a href="sobre.html">Sobre</a>
+        <button class="nav__cta" type="button" data-open-drawer>Contato</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- tela de transição; sem JS a classe nunca chega ao <html> e ela não aparece -->
+  <div class="transicao" data-transicao>
+    <div class="transicao__inner">
+      <p class="transicao__sr" role="status">Carregando a página</p>
+      <p class="transicao__dots" aria-hidden="true"><span data-transicao-texto></span></p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ===== capa ===== -->
+    <section class="capa" data-reveal="left">
+      <p class="capa__eyebrow">Portfolio</p>
+      <h1 class="capa__titulo">Trabalhos</h1>
+      <p class="capa__lead">Produtos e serviços digitais desenhados entre 2022 e 2024, em contextos de energia, indústria, agronegócio, saúde, alimentação e educação. Alguns têm case aberto; outros estão sob acordo de confidencialidade.</p>
+      <p class="capa__conta">06 projetos</p>
+    </section>
+
+    <!-- ===== 01 · ShellBox Empresas ===== -->
+    <article class="obra">
+      <picture class="obra__fundo">
+        <source srcset="assets/img/fundo-shellbox.avif" type="image/avif">
+        <source srcset="assets/img/fundo-shellbox.webp" type="image/webp">
+        <img src="assets/img/fundo-shellbox.jpg" width="1264" height="848" style="--foco:34%;--foco-x:32%" decoding="async" alt="Motorista de caminhão usando o aplicativo no celular, apoiado na janela da cabine">
+      </picture>
+
+      <div class="obra__painel">
+        <div class="obra__bloco">
+          <span class="obra__logo"><img src="assets/img/logo-shell.svg" alt="ShellBox" width="44" height="44"></span>
+          <h2 class="obra__titulo">ShellBox Empresas</h2>
+          <p class="obra__texto">Saiba como simplificamos as jornadas de gestores de frota e motoristas em um ecossistema digital B2B.</p>
+          <dl class="obra__ficha">
+            <div>
+              <dt>Ano</dt>
+              <dd>2022</dd>
+            </div>
+            <div>
+              <dt>Tipo</dt>
+              <dd>Produto digital</dd>
+            </div>
+          </dl>
+          <a class="obra__cta" href="case-shellbox.html">Ler case completo</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 02 · Intranet Honda (restrito) ===== -->
+    <article class="obra">
+      <picture class="obra__fundo">
+        <source srcset="assets/img/fundo-honda.avif" type="image/avif">
+        <source srcset="assets/img/fundo-honda.webp" type="image/webp">
+        <img src="assets/img/fundo-honda.jpg" width="1264" height="848" style="--foco:38%;--foco-x:78%" loading="lazy" decoding="async" alt="Colaborador sentado à mesa em um escritório, em frente ao computador">
+      </picture>
+
+      <div class="obra__painel">
+        <div class="obra__bloco">
+          <span class="obra__logo obra__logo--branco obra__logo--menor"><img src="assets/img/logo-honda.svg" alt="Honda" width="150" height="34"></span>
+          <h2 class="obra__titulo">Intranet Honda</h2>
+          <p class="obra__texto">Redesenhando a jornada digital do colaborador através da Intranet da Honda Brasil.</p>
+          <dl class="obra__ficha">
+            <div>
+              <dt>Ano</dt>
+              <dd>2023</dd>
+            </div>
+            <div>
+              <dt>Tipo</dt>
+              <dd>Produtos e serviços digitais</dd>
+            </div>
+          </dl>
+          <button class="obra__cta" type="button" data-restrito="Intranet Honda">Ler case completo</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 03 · Yara Fertilizantes (restrito) ===== -->
+    <article class="obra">
+      <picture class="obra__fundo">
+        <source srcset="assets/img/fundo-yara.avif" type="image/avif">
+        <source srcset="assets/img/fundo-yara.webp" type="image/webp">
+        <img src="assets/img/fundo-yara.jpg" width="1264" height="848" style="--foco:52%;--foco-x:40%" loading="lazy" decoding="async" alt="Produtor rural caminhando por uma lavoura de soja">
+      </picture>
+
+      <div class="obra__painel">
+        <div class="obra__bloco">
+          <span class="obra__logo"><img src="assets/img/logo-yara.svg" alt="Yara" width="44" height="44"></span>
+          <h2 class="obra__titulo">Yara Fertilizantes</h2>
+          <p class="obra__texto">O desafio de conduzir a equipe de Design no redesenho da homepage do e-commerce <b>comprar.yara</b>.</p>
+          <dl class="obra__ficha">
+            <div>
+              <dt>Ano</dt>
+              <dd>2023</dd>
+            </div>
+            <div>
+              <dt>Tipo</dt>
+              <dd>E-commerce</dd>
+            </div>
+          </dl>
+          <button class="obra__cta" type="button" data-restrito="Yara Fertilizantes">Ler case completo</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 04 · Simplex Marketplace (restrito) ===== -->
+    <article class="obra">
+      <picture class="obra__fundo">
+        <source srcset="assets/img/fundo-simplex.avif" type="image/avif">
+        <source srcset="assets/img/fundo-simplex.webp" type="image/webp">
+        <img src="assets/img/fundo-simplex.jpg" width="1264" height="848" style="--foco:50%;--foco-x:52%" loading="lazy" decoding="async" alt="Profissional de compras analisando uma tela no computador">
+      </picture>
+
+      <div class="obra__painel">
+        <div class="obra__bloco">
+          <h2 class="obra__titulo">Simplex Marketplace</h2>
+          <p class="obra__texto">Validando hipóteses de negócio no contexto do comércio digital de saúde através do Design e da experimentação.</p>
+          <dl class="obra__ficha">
+            <div>
+              <dt>Ano</dt>
+              <dd>2022</dd>
+            </div>
+            <div>
+              <dt>Tipo</dt>
+              <dd>Pesquisa, Problem Solution Fit</dd>
+            </div>
+          </dl>
+          <button class="obra__cta" type="button" data-restrito="Simplex Marketplace">Ler case completo</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 05 · Greentable ===== -->
+    <article class="obra">
+      <picture class="obra__fundo">
+        <source srcset="assets/img/fundo-greentable.avif" type="image/avif">
+        <source srcset="assets/img/fundo-greentable.webp" type="image/webp">
+        <img src="assets/img/fundo-greentable.jpg" width="1264" height="848" style="--foco:44%;--foco-x:44%" loading="lazy" decoding="async" alt="Cliente retirando um pedido embalado em um restaurante">
+      </picture>
+
+      <div class="obra__painel">
+        <div class="obra__bloco">
+          <span class="obra__logo obra__logo--branco"><img src="assets/img/logo-greentable.png" alt="Greentable" width="133" height="30"></span>
+          <h2 class="obra__titulo">Greentable</h2>
+          <p class="obra__texto">Integrando em um ecossistema os serviços digitais voltados para alimentação de qualidade.</p>
+          <dl class="obra__ficha">
+            <div>
+              <dt>Ano</dt>
+              <dd>2024</dd>
+            </div>
+            <div>
+              <dt>Tipo</dt>
+              <dd>Produto digital</dd>
+            </div>
+          </dl>
+          <span class="obra__breve">Em breve</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 06 · Site ESAMC ===== -->
+    <article class="obra">
+      <picture class="obra__fundo">
+        <source srcset="assets/img/fundo-esamc.avif" type="image/avif">
+        <source srcset="assets/img/fundo-esamc.webp" type="image/webp">
+        <img src="assets/img/fundo-esamc.jpg" width="1264" height="848" style="--foco:48%;--foco-x:62%" loading="lazy" decoding="async" alt="Estudante em um notebook, sentada a uma mesa">
+      </picture>
+
+      <div class="obra__painel">
+        <div class="obra__bloco">
+          <span class="obra__logo obra__logo--menor"><img src="assets/img/logo-esamc.png" alt="ESAMC" width="151" height="30"></span>
+          <h2 class="obra__titulo">Site ESAMC</h2>
+          <p class="obra__texto">Repensando a experiência de inscrições de alunos e vestibulandos e o design do site de uma instituição de ensino renomada.</p>
+          <dl class="obra__ficha">
+            <div>
+              <dt>Ano</dt>
+              <dd>2022</dd>
+            </div>
+            <div>
+              <dt>Tipo</dt>
+              <dd>Pesquisa e Arquitetura da Informação</dd>
+            </div>
+          </dl>
+          <span class="obra__breve">Em breve</span>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+<!-- ===== rodapé ===== -->
+  <footer class="footer" id="contato" data-reveal="up">
+
+    <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <p class="footer__ask">Gostou do meu portfolio e quer me conhecer melhor?</p>
+        <a class="btn" href="mailto:leonardouxexp@gmail.com"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-6 4V6a2 2 0 0 1 2-2zm0 2v10.1L7.4 16H20V6H4z"/></svg>Entre em contato</a>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegação do rodapé">
+        <a href="index.html">Início</a>
+        <a href="trabalhos.html">Trabalhos</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="#" data-open-drawer>Contato</a>
+      </nav>
+    </div>
+
+    <p class="footer__name">Leonardo Silva</p>
+    </div>
+
+  </footer>
+
+
+<!-- ===== gaveta de contato ===== -->
+  <div class="scrim" data-scrim hidden></div>
+
+  <aside class="drawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="drawer-titulo" hidden>
+    <div class="drawer__head">
+      <h2 class="drawer__title" id="drawer-titulo">Contato</h2>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Fechar contato">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </div>
+
+    <!-- Para receber os envios, troque o action por um endpoint (Formspree, Basin, Netlify Forms...) -->
+    <form class="drawer__form" action="https://formspree.io/f/SEU_ID" method="post">
+      <div class="field">
+        <label for="c-nome">Nome</label>
+        <input id="c-nome" name="nome" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="c-tel">Telefone</label>
+        <input id="c-tel" name="telefone" type="tel" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="c-email">E-mail</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="c-motivo">Motivo</label>
+        <input id="c-motivo" name="motivo" type="text">
+      </div>
+      <div class="field">
+        <label for="c-msg">Mensagem</label>
+        <textarea id="c-msg" name="mensagem" rows="3"></textarea>
+      </div>
+
+      <p class="drawer__note">
+        Nunca vou compartilhar suas informações. Ao enviar, você concorda com a
+        <a href="#">política de privacidade</a>.
+      </p>
+
+      <div class="drawer__foot">
+        <button class="drawer__send" type="submit">Enviar</button>
+        <p class="drawer__where">
+          Brasil<br>
+          leonardouxexp@gmail.com
+        </p>
+      </div>
+    </form>
+  </aside>
+
+<!-- ===== gaveta de projeto restrito (NDA) ===== -->
+<!-- Compartilha o véu com a gaveta de contato: só uma abre por vez. -->
+  <aside class="drawer" data-drawer-nda role="dialog" aria-modal="true" aria-labelledby="nda-titulo" hidden>
+    <div class="drawer__head">
+      <h2 class="drawer__title" id="nda-titulo">Projeto restrito</h2>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Fechar aviso de projeto restrito">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </div>
+
+    <p class="nda__tag" data-nda-projeto>Nome do projeto</p>
+
+    <p class="nda__lead">
+      Este case está sob acordo de confidencialidade e não pode ficar
+      publicado abertamente na web.
+    </p>
+
+    <p class="nda__text">
+      Se quiser conhecer o processo, as decisões de design e os resultados,
+      me chame no LinkedIn: apresento o material em uma conversa.
+    </p>
+
+    <div class="nda__foot">
+      <a class="nda__cta" href="https://www.linkedin.com/in/lasdesign/" target="_blank" rel="noopener noreferrer">
+        Falar comigo no LinkedIn
+      </a>
+      <p class="nda__where">
+        Brasil<br>
+        leonardouxexp@gmail.com
+      </p>
+    </div>
+  </aside>
+
+  <script src="assets/js/trabalhos.js"></script>
+</body>
+</html>

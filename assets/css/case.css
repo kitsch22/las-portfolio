@@ -1,0 +1,614 @@
+/* ============================================================
+   Página de case
+
+   Topbar, rodapé, gaveta e entradas ao rolar são os mesmos blocos
+   de home.css e sobre.css — esta é a terceira cópia, e a extração
+   de um base.css comum passou de pendência a dívida (ver README).
+
+   O que é próprio desta página usa o prefixo `caso__`, para não
+   colidir com o `.case__*` do painel da vitrine em home.css.
+   ============================================================ */
+
+:root{
+  --page:#ffffff;
+  --paper:#ffffff;
+  --ink:#000000;
+  --mute:#8a8a8a;
+  --hair:#d9d9d9;
+  --slot:#f1f1f1;
+  --pad:clamp(24px, 4vw, 56px);
+  --gutter:clamp(16px, 2vw, 28px);
+  --frame:clamp(14px, 3.5vw, 48px);
+  --ease:cubic-bezier(.32,.72,0,1);
+  --rail:190px;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  padding:var(--frame);
+  min-height:100vh;
+  background:var(--page);
+  color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- barra superior fixa ---------- */
+.topbar{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:50;
+  padding:0 var(--frame);
+  background:var(--paper);
+  transition:transform .38s cubic-bezier(.22,.61,.36,1);
+}
+.topbar.is-hidden{ transform:translateY(-100%); }
+.topbar__inner{
+  max-width:1440px;
+  margin:0 auto;
+  padding:var(--pad) var(--pad) 20px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:clamp(16px, 3vw, 40px);
+}
+.monogram{
+  font-size:clamp(26px, 2.6vw, 36px);
+  font-weight:700;
+  letter-spacing:-0.03em;
+  line-height:1;
+  text-decoration:none;
+  color:var(--ink);
+}
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:clamp(18px, 2vw, 30px);
+  padding-top:4px;
+}
+.nav a{
+  font-size:11.5px;
+  line-height:1;
+  color:var(--ink);
+  text-decoration:none;
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:border-color .18s ease;
+}
+.nav a:hover,
+.nav a:focus-visible{ border-bottom-color:var(--ink); }
+.nav__cta{
+  font-family:inherit;
+  font-size:11.5px;
+  line-height:1;
+  padding:10px 17px;
+  border:1px solid var(--ink);
+  border-radius:0;
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  transition:background-color .22s ease, color .22s ease;
+}
+.nav__cta:hover,
+.nav__cta:focus-visible{ background:var(--ink); color:var(--paper); }
+
+/* ---------- folha do case ---------- */
+.caso{
+  max-width:1440px;
+  margin:0 auto;
+  padding:var(--pad);
+  padding-top:calc(var(--topbar-h, 96px) - var(--frame) + 12px);
+  background:var(--paper);
+}
+
+/* ---------- capa ---------- */
+.caso__capa{
+  padding-bottom:clamp(60px, 8.5vw, 120px);
+  border-bottom:1px solid var(--hair);
+}
+.caso__volta{
+  display:inline-block;
+  margin-bottom:clamp(52px, 9vh, 112px);
+  font-size:11.5px;
+  line-height:1;
+  color:var(--ink);
+  text-decoration:none;
+  padding-bottom:3px;
+  border-bottom:1px solid var(--hair);
+  transition:border-color .18s ease;
+}
+.caso__volta:hover,
+.caso__volta:focus-visible{ border-bottom-color:var(--ink); }
+
+/* A folga entre a ficha técnica e a imagem da capa. Escopada de
+   propósito: a regra global `.slot` é compartilhada com as outras
+   seções, e afrouxá-la aqui mexeria na página inteira. */
+.caso__capa .slot{ margin-top:clamp(40px, 5.5vw, 64px); }
+
+.caso__titulo{
+  margin:0 0 clamp(26px, 3.6vw, 44px);
+  font-size:clamp(40px, 8vw, 104px);
+  font-weight:700;
+  line-height:0.94;
+  letter-spacing:-0.045em;
+}
+.caso__linha{
+  margin:0;
+  max-width:34ch;
+  font-size:clamp(17px, 1.9vw, 23px);
+  font-weight:300;
+  line-height:1.42;
+  letter-spacing:-0.01em;
+}
+
+.caso__dados{
+  display:flex;
+  flex-wrap:wrap;
+  margin-top:clamp(52px, 7.5vh, 96px);
+  border-top:1px solid var(--hair);
+}
+.caso__dado{
+  flex:1 1 170px;
+  padding:16px 24px 0 0;
+}
+.caso__dado dt{
+  margin:0 0 6px;
+  font-size:10.5px;
+  letter-spacing:0.13em;
+  text-transform:uppercase;
+  color:var(--mute);
+}
+.caso__dado dd{
+  margin:0;
+  font-size:13.5px;
+  line-height:1.45;
+}
+
+/* ---------- blocos de conteúdo ---------- */
+.bloco{
+  display:grid;
+  grid-template-columns:var(--rail) minmax(0,1fr);
+  gap:0 var(--gutter);
+  padding-block:clamp(52px, 8vw, 104px);
+  border-bottom:1px solid var(--hair);
+}
+.bloco:last-of-type{ border-bottom:0; }
+
+.bloco__rail p{
+  position:sticky;
+  top:calc(var(--topbar-h, 96px) + 16px);
+  margin:0;
+  font-size:10.5px;
+  letter-spacing:0.13em;
+  text-transform:uppercase;
+  color:var(--mute);
+}
+
+.bloco__corpo{ min-width:0; }
+.bloco__titulo{
+  margin:0 0 clamp(20px, 2.6vw, 32px);
+  max-width:22ch;
+  font-size:clamp(24px, 3.2vw, 40px);
+  font-weight:700;
+  line-height:1.06;
+  letter-spacing:-0.032em;
+}
+.bloco__texto p{
+  margin:0 0 18px;
+  max-width:62ch;
+  font-size:15px;
+  font-weight:300;
+  line-height:1.68;
+}
+.bloco__texto p:last-child{ margin-bottom:0; }
+.bloco__texto strong{ font-weight:500; }
+
+/* Resumo: o case inteiro em um parágrafo, então pesa mais que o corpo */
+.bloco--resumo .bloco__texto p{
+  font-size:clamp(16px, 1.6vw, 19px);
+  font-weight:300;
+  line-height:1.55;
+  max-width:56ch;
+}
+
+/* ---------- entregas ---------- */
+.entrega{
+  padding-top:clamp(36px, 5vw, 60px);
+  margin-top:clamp(36px, 5vw, 60px);
+  border-top:1px solid var(--hair);
+}
+.entrega:first-of-type{ padding-top:0; margin-top:0; border-top:0; }
+.entrega__nome{
+  margin:0 0 14px;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:-0.015em;
+}
+
+/* ---------- espaços de imagem ---------- */
+/* Mesma convenção da vitrine: o slot existe, a imagem entra depois. */
+.slot{
+  margin:clamp(28px, 4vw, 44px) 0 0;
+}
+.slot__quadro{
+  display:block;
+  width:100%;
+  aspect-ratio:16 / 10;
+  background:var(--slot);
+  overflow:hidden;
+}
+.slot__quadro img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.slot__legenda{
+  margin:10px 0 0;
+  font-size:11.5px;
+  font-weight:300;
+  line-height:1.5;
+  color:var(--mute);
+  max-width:56ch;
+}
+.slots--par{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:var(--gutter);
+  align-items:stretch;
+  /* O par precisa da própria margem: a regra abaixo zera a dos filhos,
+     e sem esta o bloco encostava no parágrafo acima. */
+  margin-top:clamp(40px, 6vw, 72px);
+}
+.slots--par .slot{
+  margin-top:0;
+  display:flex;
+  flex-direction:column;
+}
+/* Iguala a altura dos dois quadros: cada .slot estica na linha do grid
+   e a cena ocupa o que sobra acima da legenda. Assim os dois terminam
+   na mesma altura mesmo com capturas de proporções diferentes, e as
+   legendas ficam alinhadas. */
+.slots--par .slot__quadro--cena{ flex:1 1 auto; }
+.slots--par .slot__quadro{ aspect-ratio:4 / 5; }
+.slot--alto .slot__quadro{ aspect-ratio:4 / 3; }
+
+/* Não recorta: a imagem define a própria altura, em qualquer proporção.
+   Para composições já diagramadas, que trazem margem própria e perderiam
+   sentido cortadas. Trocar a imagem depois não exige mexer aqui. */
+.slot--inteiro .slot__quadro{
+  aspect-ratio:auto;
+  background:none;
+}
+.slot--inteiro .slot__quadro img{ height:auto; }
+
+/* Cena: captura crua de app centralizada sobre um fundo neutro, dentro
+   de uma moldura roxa. Os cantos arredondados são deliberados e valem
+   só aqui — reproduzem o bezel do material original do case, não o
+   chrome do site, que segue reto.
+   As duas classes no mesmo elemento vencem `.slots--par .slot__quadro`,
+   que fixa proporção 4:5 e recorta. */
+.slot__quadro.slot__quadro--cena{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  aspect-ratio:auto;
+  /* Vertical maior que o horizontal: é isto que dá altura ao bloco sem
+     tocar no tamanho da captura, que fica centralizada na folga. */
+  padding:clamp(48px, 7vw, 88px) clamp(28px, 5vw, 56px);
+  background:var(--cena-fundo, linear-gradient(to bottom, #f2f2f2, #f0f0f0));
+}
+
+/* O fundo da cena é um token local com valor padrão embutido: o quadro 1
+   fica no degradê, o quadro 2 troca por roxo chapado. Sobrescrever a
+   variável evita disputa de especificidade com a regra de duas classes
+   acima, que é (0,2,0) e venceria um seletor simples. */
+.slot__quadro--cena-nova{ --cena-fundo:#7F2B80; }
+.slot__quadro--cena .moldura{
+  display:block;
+  max-width:100%;
+  padding:4px;
+  background:#641964;
+  border-radius:16px;
+}
+.slot__quadro--cena .moldura img{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  /* Teto da captura. A altura do bloco NÃO se ajusta aqui: quem faz
+     isso é o padding vertical da cena, senão a imagem cresce junto. */
+  max-height:clamp(380px, 52vh, 560px);
+  border-radius:12px;
+}
+
+/* ---------- resultados ---------- */
+.nums{
+  display:flex;
+  flex-wrap:wrap;
+  gap:clamp(28px, 4vw, 56px);
+  margin:0 0 clamp(32px, 4vw, 48px);
+}
+.num{ flex:0 1 auto; }
+.num b{
+  display:block;
+  font-size:clamp(44px, 7vw, 92px);
+  font-weight:700;
+  line-height:0.9;
+  letter-spacing:-0.05em;
+  font-variant-numeric:tabular-nums;
+}
+.num span{
+  display:block;
+  margin-top:10px;
+  max-width:19ch;
+  font-size:12.5px;
+  font-weight:300;
+  line-height:1.5;
+  color:var(--mute);
+}
+.credito{
+  margin:0;
+  max-width:58ch;
+  padding-top:clamp(24px, 3vw, 34px);
+  border-top:1px solid var(--hair);
+  font-size:13px;
+  font-weight:300;
+  line-height:1.62;
+  color:var(--mute);
+}
+
+/* ---------- marcador de pendência ---------- */
+/* Some quando o texto real entrar. Deliberadamente feio para não
+   passar batido numa publicação. */
+.pendencia{
+  display:inline-block;
+  padding:2px 8px;
+  border:1px dashed var(--mute);
+  font-size:11.5px;
+  font-weight:400;
+  line-height:1.5;
+  color:var(--mute);
+}
+
+/* ---------- rodapé ---------- */
+.footer{
+  max-width:none;
+  margin:0 calc(var(--frame) * -1) calc(var(--frame) * -1);
+  padding:clamp(34px, 4.5vw, 66px) var(--pad) 0;
+  background:var(--ink);
+  color:var(--paper);
+  overflow:hidden;
+}
+.footer__inner{
+  max-width:1440px;
+  margin:0 auto;
+}
+.footer__top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:clamp(32px, 6vw, 90px);
+}
+.footer__ask{
+  margin:0 0 26px;
+  max-width:26ch;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.45;
+  letter-spacing:-0.01em;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:15px 22px;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:12px;
+  line-height:1;
+  text-decoration:none;
+  transition:opacity .2s ease;
+}
+.btn svg{ width:17px; height:17px; flex:0 0 auto; }
+.btn:hover, .btn:focus-visible{ opacity:.8; }
+.footer__nav{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:clamp(18px, 2.4vw, 34px);
+  padding-top:4px;
+}
+.footer__nav a{
+  font-size:11.5px;
+  line-height:1;
+  color:var(--paper);
+  text-decoration:none;
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:border-color .18s ease;
+}
+.footer__nav a:hover,
+.footer__nav a:focus-visible{ border-bottom-color:var(--paper); }
+.footer__name{
+  margin:clamp(48px, 8vh, 110px) 0 -0.13em;
+  font-size:clamp(38px, 12.6vw, 182px);
+  font-weight:700;
+  line-height:.82;
+  letter-spacing:-0.05em;
+  white-space:nowrap;
+}
+.footer :focus-visible{ outline-color:var(--paper); }
+
+/* ---------- gaveta de contato ---------- */
+.scrim{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  background:rgba(0,0,0,.6);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+.scrim.is-open{ opacity:1; visibility:visible; }
+
+.drawer{
+  position:fixed;
+  top:0; right:0; bottom:0;
+  z-index:90;
+  width:min(580px, 100%);
+  padding:clamp(26px, 3.4vw, 52px);
+  background:var(--paper);
+  color:var(--ink);
+  overflow-y:auto;
+  transform:translateX(100%);
+  transition:transform .55s cubic-bezier(.32,.72,0,1);
+}
+.drawer.is-open{ transform:none; }
+.drawer__head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:clamp(28px, 4vh, 48px);
+}
+.drawer__title{
+  margin:0;
+  font-size:clamp(22px, 2.4vw, 30px);
+  font-weight:400;
+  letter-spacing:-0.03em;
+  line-height:1;
+}
+.drawer__close{
+  flex:0 0 auto;
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:1px solid var(--hair);
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  transition:border-color .2s ease, background-color .2s ease, color .2s ease;
+}
+.drawer__close svg{ width:15px; height:15px; }
+.drawer__close:hover,
+.drawer__close:focus-visible{ border-color:var(--ink); background:var(--ink); color:var(--paper); }
+
+.field{ margin-bottom:clamp(20px, 3vh, 30px); }
+.field label{
+  display:block;
+  margin-bottom:10px;
+  font-size:14px;
+  line-height:1;
+}
+.field input,
+.field textarea{
+  width:100%;
+  font:inherit;
+  font-size:13px;
+  padding:4px 0 10px;
+  border:0;
+  border-bottom:1px solid var(--hair);
+  border-radius:0;
+  background:transparent;
+  color:var(--ink);
+  outline:none;
+  transition:border-color .2s ease;
+}
+.field textarea{ resize:vertical; min-height:70px; }
+.field input:focus,
+.field textarea:focus{ border-bottom-color:var(--ink); }
+
+.drawer__note{
+  margin:0 0 clamp(20px, 3vh, 30px);
+  padding-bottom:clamp(20px, 3vh, 30px);
+  border-bottom:1px solid var(--hair);
+  font-size:11px;
+  font-weight:300;
+  line-height:1.6;
+  color:var(--mute);
+}
+.drawer__note a{ color:var(--mute); }
+.drawer__foot{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+}
+.drawer__send{
+  font-family:inherit;
+  font-size:12px;
+  line-height:1;
+  padding:15px 30px;
+  border:1px solid var(--ink);
+  border-radius:0;
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  transition:background-color .22s ease, color .22s ease;
+}
+.drawer__send:hover,
+.drawer__send:focus-visible{ background:var(--ink); color:var(--paper); }
+.drawer__where{
+  margin:0;
+  font-size:11px;
+  font-weight:300;
+  line-height:1.7;
+  text-align:right;
+  color:var(--mute);
+}
+
+/* ---------- entradas ao rolar ---------- */
+.reveal-ready [data-reveal]{
+  opacity:0;
+  filter:blur(12px);
+  transition:opacity 1300ms cubic-bezier(.16,.72,.24,1),
+             transform 1300ms cubic-bezier(.16,.72,.24,1),
+             filter 1300ms cubic-bezier(.16,.72,.24,1);
+}
+.reveal-ready [data-reveal="left"]{  transform:translate3d(-54px, 0, 0); }
+.reveal-ready [data-reveal="right"]{ transform:translate3d(54px, 0, 0); }
+.reveal-ready [data-reveal="up"]{    transform:translate3d(0, 54px, 0); }
+.reveal-ready [data-reveal].is-visible{
+  opacity:1;
+  filter:blur(0);
+  transform:none;
+}
+
+/* ---------- telas estreitas ---------- */
+@media (max-width: 860px){
+  :root{ --rail:0px; }
+  .bloco{
+    grid-template-columns:minmax(0,1fr);
+    gap:0;
+  }
+  .bloco__rail p{
+    position:static;
+    margin-bottom:16px;
+  }
+  .caso__dado{ flex-basis:calc(50% - 12px); }
+  .footer{ padding:clamp(28px, 7vw, 40px) clamp(20px, 6vw, 32px) 0; }
+  .footer__top{ flex-direction:column; gap:36px; }
+  .footer__nav{ gap:clamp(14px, 3.4vw, 22px); padding-top:0; }
+}
+
+@media (max-width: 560px){
+  .slots--par{ grid-template-columns:minmax(0,1fr); }
+  .drawer__foot{ flex-direction:column; align-items:stretch; gap:20px; }
+  .drawer__where{ text-align:left; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal-ready [data-reveal]{
+    opacity:1 !important;
+    filter:none !important;
+    transform:none !important;
+  }
+  *{ transition:none !important; animation:none !important; }
+}

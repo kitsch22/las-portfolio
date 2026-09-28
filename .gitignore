@@ -1,0 +1,14 @@
+.DS_Store
+node_modules/
+.vercel
+*.log
+Thumbs.db
+
+# Config do Claude Code por máquina. O settings.json compartilhado pode ser
+# versionado; o .local.json é pessoal e não.
+.claude/settings.local.json
+
+# Original em alta do retrato do hero (4,2 MB). Serve só para regerar os
+# recortes; as versões publicadas são retrato-hero-home.{avif,webp,jpg}.
+# Fica no disco, fora do deploy.
+assets/img/self-color.png

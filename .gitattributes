@@ -1,0 +1,12 @@
+# Normaliza a quebra de linha no repositório: LF no que é versionado, e cada
+# máquina fica com o que usa no disco. Sem isto, editar no Windows e no Mac
+# gera diffs em arquivos que ninguém mexeu.
+* text=auto eol=lf
+
+# Binários não passam por conversão nenhuma
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico  binary

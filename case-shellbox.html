@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShellBox Empresas, Leonardo Silva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/case.css">
+<link rel="stylesheet" href="assets/css/transicao.css">
+<script>
+/* Sobe a tela de transição antes do primeiro quadro, quando a página
+   anterior deixou o recado na sessão. Precisa ser inline e síncrono:
+   um arquivo externo chegaria depois do conteúdo já ter piscado. */
+(function(){
+  try{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var bruto = sessionStorage.getItem('transicao');
+    if(!bruto) return;
+    sessionStorage.removeItem('transicao');
+    var d = JSON.parse(bruto);
+    if(!d || !d.inicio || Date.now() - d.inicio > d.duracao + 6000) return;
+    if(d.topbar) document.documentElement.style.setProperty('--topbar-h', d.topbar + 'px');
+    document.documentElement.classList.add('transicao-ativa', 'transicao-imediata');
+    window.__transicao = d;
+  }catch(e){}
+})();
+</script>
+<script src="assets/js/transicao.js" defer></script>
+</head>
+<body>
+
+  <header class="topbar" data-topbar>
+    <div class="topbar__inner">
+      <a class="monogram" href="index.html" aria-label="Leonardo Alves da Silva — início">LAS</a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="trabalhos.html">Trabalhos</a>
+        <a href="sobre.html">Sobre</a>
+        <button class="nav__cta" type="button" data-open-drawer>Contato</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- tela de transição; sem JS a classe nunca chega ao <html> e ela não aparece -->
+  <div class="transicao" data-transicao>
+    <div class="transicao__inner">
+      <p class="transicao__sr" role="status">Carregando a página</p>
+      <p class="transicao__dots" aria-hidden="true"><span data-transicao-texto></span></p>
+    </div>
+  </div>
+
+  <main class="caso">
+
+    <!-- ===== capa ===== -->
+    <section class="caso__capa" data-reveal="up">
+      <a class="caso__volta" href="trabalhos.html">&larr; Todos os trabalhos</a>
+
+      <h1 class="caso__titulo">ShellBox Empresas</h1>
+      <p class="caso__linha">Único designer da frente B2B de um produto de gestão de frotas recém-lançado, competindo com incumbentes consolidados.</p>
+
+      <dl class="caso__dados">
+        <div class="caso__dado">
+          <dt>Papel</dt>
+          <dd>Product Designer</dd>
+        </div>
+        <div class="caso__dado">
+          <dt>Empresa</dt>
+          <dd>Raízen — joint venture Shell + Cosan</dd>
+        </div>
+        <div class="caso__dado">
+          <dt>Período</dt>
+          <dd>8 meses &mdash; agosto de 2021 a abril de 2022</dd>
+        </div>
+        <div class="caso__dado">
+          <dt>Equipe de Design</dt>
+          <dd>Seis designers e uma UX researcher cross no ShellBox; o único na frente B2B</dd>
+        </div>
+        <div class="caso__dado">
+          <dt>Tríade</dt>
+          <dd>Product designer, product manager e tech lead</dd>
+        </div>
+      </dl>
+
+      <div class="slot slot--inteiro">
+        <span class="slot__quadro"><img src="assets/img/case-shellbox-capa.png" alt="Tela de login do portal ShellBox Empresas: campos de usuário e senha à esquerda e, à direita, a chamada “Seu negócio leve e livre de complicações” ao lado de um celular e um caminhão ilustrado"></span>
+      </div>
+    </section>
+
+    <!-- ===== resumo ===== -->
+    <section class="bloco bloco--resumo" data-reveal="up">
+      <div class="bloco__rail"><p>Resumo</p></div>
+      <div class="bloco__corpo">
+        <div class="bloco__texto">
+          <p>O ShellBox Empresas tinha poucos meses de mercado e concorrentes com décadas de operação. O ShellBox tinha seis designers, nenhum deles na frente B2B — entrei como o primeiro.</p>
+          <p>Em oito meses: recoloquei pesquisa com usuários na decisão de roadmap, desenhei a recolha de notas fiscais ponta a ponta entre três sistemas, redesenhei o fluxo de abastecimento do app — onde 18% dos motoristas erravam o código da bomba — e levei as permissões de abastecimento para a tela do motorista.</p>
+          <p>No período, o produto cresceu 93% em placas ativadas e 180% em transações.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== contexto ===== -->
+    <section class="bloco" data-reveal="up">
+      <div class="bloco__rail"><p>Contexto</p></div>
+      <div class="bloco__corpo">
+        <h2 class="bloco__titulo">Um produto novo em um mercado maduro</h2>
+        <div class="bloco__texto">
+          <p>O ShellBox Empresas apoia gestores e motoristas de frota na gestão financeira e operacional do abastecimento. Quando cheguei, o produto tinha poucos meses de lançamento. O ShellBox como um todo tinha seis designers e uma UX researcher cross, mas ninguém dedicado à frente B2B.</p>
+          <p>Competíamos com players consolidados em gestão de frota, que estavam digitalizando seus serviços de cartão de abastecimento. Precisávamos alcançar paridade e, ao mesmo tempo, oferecer algo que eles não tinham.</p>
+          <p>Tínhamos um diferencial real: integração direta com a bomba. O pagamento acontecia no app, sem cartão físico.</p>
+          <p>Eu era o primeiro designer no produto e não conhecia o mercado de frotas. Comecei pela pesquisa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== pesquisa ===== -->
+    <section class="bloco" data-reveal="up">
+      <div class="bloco__rail"><p>Pesquisa</p></div>
+      <div class="bloco__corpo">
+        <h2 class="bloco__titulo">Recolocando o usuário na decisão de roadmap</h2>
+        <div class="bloco__texto">
+          <p>O time já tinha entregue as funcionalidades essenciais e precisava reestruturar o roadmap. A discussão sobre o que priorizar acontecia sem evidência de campo.</p>
+          <p>Conduzi uma pesquisa exploratória com entrevistas em profundidade com gestores de frota — os tomadores de decisão na contratação do produto.</p>
+          <p>O que encontramos mudou a priorização: gestão remota e presencial têm necessidades diferentes, frotas pequenas e grandes operam de formas distintas, e a pandemia havia alterado as rotinas de acompanhamento.</p>
+          <p>Uma descoberta virou entrega direta. Gestores precisavam enxergar desempenho por período customizado, então desenhamos o dashboard da home: volume de transações, uso de combustível e custo por quilômetro.</p>
+          <p>A partir dali a pesquisa passou a informar não só o que construir, mas por que e como.</p>
+        </div>
+
+        <div class="slot slot--inteiro">
+          <span class="slot__quadro"><img src="assets/img/case-shellbox-dashboard.png" alt="Dashboard da home do ShellBox Empresas: saldo em conta e limite disponível, seletor de período e os painéis de transações aprovadas, distribuição por combustível e custo por quilômetro"></span>
+          <p class="slot__legenda">Dashboard da home: desempenho da frota por período, com transações, consumo e custo por quilômetro.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== as três entregas ===== -->
+    <section class="bloco" data-reveal="up">
+      <div class="bloco__rail"><p>Entregas</p></div>
+      <div class="bloco__corpo">
+        <div class="entrega">
+          <h2 class="entrega__nome">Recolha de notas fiscais</h2>
+          <div class="bloco__texto">
+            <p>A oportunidade veio do time comercial: recolher as notas fiscais dos abastecimentos era um processo manual e lento, tanto para as empresas quanto para os postos. Organizar os cupons de cada abastecimento e solicitar a emissão da nota ao posto eram os maiores gargalos.</p>
+            <p>Desenhei o fluxo ponta a ponta conectando três sistemas: o app, que registrava as transações; o Conexão Shell, por onde os postos subiam as notas; e o Portal de Gestão, onde o gestor acompanhava, baixava e contestava.</p>
+            <p>Era valor financeiro direto para o cliente — e um argumento comercial que os concorrentes não tinham.</p>
+          </div>
+          <div class="slot slot--inteiro">
+            <span class="slot__quadro"><img src="assets/img/case-shellbox-notas.png" alt="Três telas da recolha de notas fiscais: a lista de pedidos com status por nota, o detalhe de um pedido com as notas eletrônicas e as ações de reportar e baixar, e a relação de abastecimentos que originou cada nota"></span>
+            <p class="slot__legenda">Acompanhamento das notas fiscais no Portal de Gestão, com status por pedido e contestação.</p>
+          </div>
+        </div>
+
+        <div class="entrega">
+          <h2 class="entrega__nome">Fluxo de abastecimento</h2>
+          <div class="bloco__texto">
+            <p>Cerca de 18% dos motoristas digitavam o código da bomba incorretamente.</p>
+            <p>Olhando o fluxo, a causa era de design: digitar a quilometragem do veículo e digitar o código da bomba eram etapas visualmente parecidas e em sequência. O motorista, parado no posto com o carro na bomba, confundia as duas.</p>
+            <p>Redesenhei a etapa de quilometragem para separar as duas entradas. Não acompanhei a taxa de erro depois do lançamento: fui alocado em outro projeto antes da medição.</p>
+          </div>
+          <div class="slots--par">
+            <div class="slot">
+              <span class="slot__quadro slot__quadro--cena">
+                <span class="moldura"><img src="assets/img/case-shellbox-fluxo-antes.png" alt="Tela inicial do app ShellBox na versão anterior: cartão roxo do veículo AST-2973 com o saldo disponível e o campo “Digite o km” com seta de avanço"></span>
+              </span>
+              <p class="slot__legenda">Versão anterior.</p>
+            </div>
+            <div class="slot">
+              <span class="slot__quadro slot__quadro--cena slot__quadro--cena-nova">
+                <span class="moldura"><img src="assets/img/case-shellbox-fluxo-depois.webp" alt="Gravação da nova versão do fluxo no app ShellBox: o cartão do veículo AST2973 aparece como “Liberado” e o botão “Abasteça agora” ocupa o lugar do campo de digitação" width="320" height="568" loading="lazy" decoding="async"></span>
+              </span>
+              <p class="slot__legenda">Nova versão, com as duas entradas separadas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="entrega">
+          <h2 class="entrega__nome">Permissões de abastecimento</h2>
+          <div class="bloco__texto">
+            <p>Gestão de frota exige parametrizar quem pode abastecer: limite de valor, dias da semana, horários e tipo de combustível.</p>
+            <p>O gestor definia as regras, mas o motorista não as via. O resultado era previsível: ele descobria o bloqueio na bomba, e a ligação para o gestor virava rotina.</p>
+            <p>Levei as permissões para o app do motorista. Ele passou a se planejar antes de sair, e a comunicação com o gestor deixou de ser reativa.</p>
+          </div>
+          <div class="slot slot--inteiro">
+            <span class="slot__quadro"><img src="assets/img/case-shellbox-permissoes.png" alt="Duas telas do app do motorista: à esquerda, as permissões do veículo AST2973, liberado para abastecer, com limite de R$ 1.200,00 e os produtos permitidos; à direita, a tela de veículos com abastecimento bloqueado, intervalo de horas e dias da semana definidos pelo gestor de frota"></span>
+            <p class="slot__legenda">Permissões visíveis ao motorista: limite e produtos liberados, e o detalhe por intervalo de horas e dias da semana.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== resultados ===== -->
+    <section class="bloco" data-reveal="up">
+      <div class="bloco__rail"><p>Resultados</p></div>
+      <div class="bloco__corpo">
+        <h2 class="bloco__titulo">O que aconteceu em oito meses</h2>
+
+        <div class="nums">
+          <div class="num"><b>93%</b><span>aumento em placas ativadas</span></div>
+          <div class="num"><b>180%</b><span>aumento em transações</span></div>
+          <div class="num"><b>200%</b><span>aumento em volume de combustível</span></div>
+        </div>
+
+        <p class="credito">Números do produto nos oito meses em que atuei. O crescimento é do time — Comercial, Produto, Engenharia, Dados e Design. Minha contribuição está nas frentes descritas acima.</p>
+      </div>
+    </section>
+
+    <!-- ===== o que ficou ===== -->
+    <section class="bloco" data-reveal="up">
+      <div class="bloco__rail"><p>O que mudou</p></div>
+      <div class="bloco__corpo">
+        <div class="bloco__texto">
+          <p><strong>No time:</strong> a pesquisa com usuários voltou a informar a priorização do roadmap.</p>
+          <p><strong>Em mim:</strong> aprendi a construir e manter produto ao lado de áreas com conhecimento muito específico, e a traduzir esse conhecimento em decisão de design.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+<!-- ===== rodapé ===== -->
+  <footer class="footer" id="contato" data-reveal="up">
+
+    <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <p class="footer__ask">Gostou do meu portfolio e quer me conhecer melhor?</p>
+        <a class="btn" href="mailto:leonardouxexp@gmail.com"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-6 4V6a2 2 0 0 1 2-2zm0 2v10.1L7.4 16H20V6H4z"/></svg>Entre em contato</a>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegação do rodapé">
+        <a href="index.html">Início</a>
+        <a href="trabalhos.html">Trabalhos</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="#" data-open-drawer>Contato</a>
+      </nav>
+    </div>
+
+    <p class="footer__name">Leonardo Silva</p>
+    </div>
+
+  </footer>
+
+
+<!-- ===== gaveta de contato ===== -->
+  <div class="scrim" data-scrim hidden></div>
+
+  <aside class="drawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="drawer-titulo" hidden>
+    <div class="drawer__head">
+      <h2 class="drawer__title" id="drawer-titulo">Contato</h2>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Fechar contato">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </div>
+
+    <!-- Para receber os envios, troque o action por um endpoint (Formspree, Basin, Netlify Forms...) -->
+    <form class="drawer__form" action="https://formspree.io/f/SEU_ID" method="post">
+      <div class="field">
+        <label for="c-nome">Nome</label>
+        <input id="c-nome" name="nome" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="c-tel">Telefone</label>
+        <input id="c-tel" name="telefone" type="tel" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="c-email">E-mail</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="c-motivo">Motivo</label>
+        <input id="c-motivo" name="motivo" type="text">
+      </div>
+      <div class="field">
+        <label for="c-msg">Mensagem</label>
+        <textarea id="c-msg" name="mensagem" rows="3"></textarea>
+      </div>
+
+      <p class="drawer__note">
+        Nunca vou compartilhar suas informações. Ao enviar, você concorda com a
+        <a href="#">política de privacidade</a>.
+      </p>
+
+      <div class="drawer__foot">
+        <button class="drawer__send" type="submit">Enviar</button>
+        <p class="drawer__where">
+          Brasil<br>
+          leonardouxexp@gmail.com
+        </p>
+      </div>
+    </form>
+  </aside>
+
+  <script src="assets/js/case.js"></script>
+</body>
+</html>

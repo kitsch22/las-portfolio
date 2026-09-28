@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio, Leonardo Silva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/transicao.css">
+<script>
+/* Sobe a tela de transição antes do primeiro quadro, quando a página
+   anterior deixou o recado na sessão. Precisa ser inline e síncrono:
+   um arquivo externo chegaria depois do conteúdo já ter piscado. */
+(function(){
+  try{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var bruto = sessionStorage.getItem('transicao');
+    if(!bruto) return;
+    sessionStorage.removeItem('transicao');
+    var d = JSON.parse(bruto);
+    if(!d || !d.inicio || Date.now() - d.inicio > d.duracao + 6000) return;
+    if(d.topbar) document.documentElement.style.setProperty('--topbar-h', d.topbar + 'px');
+    document.documentElement.classList.add('transicao-ativa', 'transicao-imediata');
+    window.__transicao = d;
+  }catch(e){}
+})();
+</script>
+<script src="assets/js/transicao.js" defer></script>
+</head>
+<body>
+
+  <header class="topbar" data-topbar>
+    <div class="topbar__inner">
+      <a class="monogram" href="#" aria-label="Leonardo Alves da Silva — início">LAS</a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#">Início</a>
+        <a href="trabalhos.html">Trabalhos</a>
+        <a href="sobre.html">Sobre</a>
+        <button class="nav__cta" type="button" data-open-drawer>Contato</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- tela de transição; sem JS a classe nunca chega ao <html> e ela não aparece -->
+  <div class="transicao" data-transicao>
+    <div class="transicao__inner">
+      <p class="transicao__sr" role="status">Carregando a página</p>
+      <p class="transicao__dots" aria-hidden="true"><span data-transicao-texto></span></p>
+    </div>
+  </div>
+
+  <main class="sheet">
+
+    <figure class="photo" data-reveal="left" data-delay="300">
+      <!-- avif e webp na frente; o jpg é a rede de segurança de quem não suporta -->
+      <picture>
+        <source srcset="assets/img/retrato-hero-home.avif" type="image/avif">
+        <source srcset="assets/img/retrato-hero-home.webp" type="image/webp">
+        <img src="assets/img/retrato-hero-home.jpg" width="900" height="1350" alt="Retrato de Leonardo Silva, de pé, de camiseta e calça verde-azuladas, diante de uma parede da mesma cor">
+      </picture>
+    </figure>
+
+    <h1 class="title" data-reveal="left">
+      <span class="title__lead">Portfolio,</span>
+      <span>Leonardo</span>
+      <span>Silva</span>
+    </h1>
+
+    <ul class="practice" data-reveal="left" data-delay="560">
+      <li>Design</li>
+      <li>Produtos</li>
+      <li>Serviços</li>
+      <li>Pessoas</li>
+    </ul>
+
+    <section class="intro" data-reveal="left" data-delay="90">
+      <h2>Adaptabilidade e Excelência</h2>
+      <p>Foco em entender como as partes se relacionam em sistemas, escolher a melhor abordagem para cada problema e tomar decisões sustentáveis &mdash; sempre construindo junto com outras pessoas.</p>
+    </section>
+
+    <div class="meta" data-reveal="left" data-delay="650">
+      <p class="meta__text">
+        Brasil<br>
+        <span class="meta__coords">leonardouxexp@gmail.com</span>
+      </p>
+      <a class="go" href="#trabalhos" aria-label="Ir para os trabalhos">&darr;</a>
+    </div>
+
+  </main>
+
+  <!-- ===== vitrine de trabalhos ===== -->
+  <!-- O trilho é só altura: enquanto ele atravessa a janela, o quadro fica
+       presente e a rolagem da página avança de um item para o outro. Quando o
+       trilho acaba, a seção solta e a página volta a rolar normalmente.
+       Sem data-reveal aqui: transform e filter no ancestral atrapalham sticky. -->
+  <section class="showcase" id="trabalhos" aria-label="Meus trabalhos">
+   <div class="showcase__trilho" data-trilho>
+    <div class="showcase__fixo">
+     <div class="showcase__quadro">
+
+    <div class="stage">
+
+      <p class="cap cap--top" data-meta-top>
+        <span class="cap__n" data-ordinal>01.</span> <span data-title>Nome do projeto</span>
+      </p>
+
+      <div class="railwrap">
+      <div class="rail viewport" tabindex="0" role="group" aria-label="Vitrine de trabalhos, use as setas para navegar">
+        <ul class="strip" data-strip>
+          <!-- Para publicar: coloque um <img> dentro do .work__media de cada item -->
+          <li class="work" data-title="ShellBox Empresas" data-cat="Produto digital" data-year="2022" data-url="case-shellbox.html" data-desc="Saiba como simplificamos as jornadas de gestores de frota e motoristas em um ecossistema digital B2B.">
+            <button class="work__btn" type="button"><span class="work__media"><img src="assets/img/case-shellbox.jpg" alt="Motorista de caminhão usando o aplicativo no celular"></span><span class="work__n">01</span></button>
+            <span class="work__logo" hidden><svg viewBox="0 0 81 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M79.4233 41.1328V61.0808L79.4201 61.4249C79.2648 69.6583 73.5494 76.5322 65.87 78.4492H15.1288C7.34394 76.5055 1.57617 69.4662 1.57617 61.0808V41.1328H79.4233Z" fill="#FBCE07"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M61.5177 1.15137L61.8619 1.15461C71.5927 1.338 79.4233 9.2805 79.4233 19.0523V41.6657H1.57617V19.0523L1.57941 18.7082C1.76286 8.98024 9.70784 1.15137 19.4802 1.15137H61.5177Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M41.6684 35.3303C41.2518 35.6361 40.7489 35.8017 40.2335 35.8017C39.718 35.8017 39.2159 35.6361 38.7985 35.3303L38.3215 34.9805H30.0694L29.3044 28.8018L24.2988 25.1246C24.0807 24.0448 23.9709 22.9434 23.9709 21.8412C23.9709 12.7737 31.2564 5.41602 40.2335 5.41602C49.2105 5.41602 56.4961 12.7737 56.4961 21.8412C56.4961 22.9434 56.387 24.0448 56.1673 25.1246L51.1625 28.8018L50.3976 34.9805H42.1447L41.6684 35.3303Z" fill="#FBCE07"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.2307 5.41602C31.2555 5.41602 23.9709 12.7719 23.9709 21.841C23.9709 22.9402 24.0807 24.0466 24.298 25.1258L29.3051 28.807L30.0684 34.9803H38.3211L38.7989 35.3358C39.2147 35.6416 39.7192 35.8017 40.2307 35.8017C40.7493 35.8017 41.2538 35.6416 41.6696 35.3358L42.1403 34.9803H50.3922L51.1635 28.807L56.1689 25.1258C56.3878 24.0466 56.4961 22.9402 56.4961 21.841C56.4961 12.7719 49.206 5.41602 40.2307 5.41602ZM53.4277 23.5807L48.4897 27.2138L47.8832 32.1062H41.8877L40.9949 32.7603C40.776 32.9196 40.51 33.0109 40.2307 33.0109C39.9577 33.0109 39.6917 32.9196 39.4666 32.7603L38.58 32.1062H32.5782L31.9717 27.2138L27.0338 23.5807C26.8902 23.0099 26.8149 22.4254 26.8149 21.841C26.8149 20.8595 27.0204 19.8915 27.4151 18.9941L36.166 27.9303L27.6614 17.324C27.9949 15.9462 28.7323 14.7069 29.7828 13.7678L37.4071 27.0601L30.6553 12.5077C31.5277 11.3316 32.7422 10.4686 34.134 10.037L38.7989 26.5317L35.3885 9.35494C36.4249 8.7633 37.5986 8.45027 38.7848 8.45027C39.0374 8.45027 39.29 8.46468 39.5348 8.4919L40.2307 26.3571L40.9266 8.4919C41.1785 8.46468 41.4311 8.45027 41.6767 8.45027C42.87 8.45027 44.0366 8.7633 45.073 9.35494L41.6696 26.5317L46.3275 10.037C47.7193 10.4686 48.94 11.3316 49.8132 12.5077L43.0606 27.0601L50.6794 13.7678C51.7291 14.7069 52.4729 15.9462 52.8071 17.324L44.3018 27.9303L53.0456 18.9941C53.4418 19.8915 53.6466 20.8595 53.6466 21.841C53.6466 22.4254 53.5783 23.0099 53.4277 23.5807Z" fill="#DD1D21"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4105 48.5962C24.8681 48.5962 28.1311 49.5114 28.1311 53.7179C28.1311 55.0798 27.4005 56.663 26.1587 57.2564V57.3066C28.3258 57.7022 29.8356 59.8561 29.8356 62.0327C29.8356 65.769 26.6946 67.2541 23.4564 67.2541H19.1716V48.5962H21.4105ZM40.4996 48.5962C45.7481 48.5962 50.0972 52.7984 50.0972 57.9251C50.0972 63.2424 45.7967 67.2541 40.4996 67.2541C35.2033 67.2541 30.902 63.2424 30.902 57.9251C30.902 52.7984 35.2511 48.5962 40.4996 48.5962ZM52.7275 48.5962L56.3109 55.4013L60.1253 48.5962H62.6151L57.5661 57.4797L62.894 67.2541H60.4507L56.3109 59.6076L52.0058 67.2541H49.564L55.0763 57.4797L50.2385 48.5962H52.7275ZM22.8717 58.7171H21.46V65.1756H23.2131C25.3307 65.1756 27.5465 64.5328 27.5465 61.8844C27.5465 59.2611 24.9176 58.7171 22.8717 58.7171ZM40.4996 50.6856C36.1991 50.6856 33.1864 53.985 33.1864 57.9251C33.1864 62.0076 36.539 65.1647 40.4996 65.1647C44.4603 65.1647 47.8128 62.0076 47.8128 57.9251C47.8128 53.985 44.8001 50.6856 40.4996 50.6856ZM22.0933 50.6747H21.46V56.8608H22.0438C24.2109 56.8608 25.988 56.4157 25.988 53.743C25.988 51.1197 24.2348 50.6747 22.0933 50.6747Z" fill="#595959"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M19.4802 1.15137C9.59287 1.15137 1.57617 9.16554 1.57617 19.0523V61.0806C1.57617 70.9665 9.59287 78.9815 19.4802 78.9815H61.5177C71.4074 78.9815 79.4233 70.9665 79.4233 61.0806V19.0523C79.4233 9.16554 71.4074 1.15137 61.5177 1.15137H19.4802Z" stroke="#FBCE07" stroke-width="1.83051"/>
+</svg></span>
+          </li>
+          <li class="work" data-title="Intranet Honda" data-cat="Produtos e serviços digitais" data-year="2023" data-restrito data-desc="Redesenhando a jornada digital do colaborador através da Intranet da Honda Brasil.">
+            <button class="work__btn" type="button"><span class="work__media"><img src="assets/img/case-honda.jpg" alt="Colaborador acessando o computador em um escritório"></span><span class="work__n">06</span></button>
+            <span class="work__logo" hidden><svg class="logo--h32" role="img" aria-label="Honda" viewBox="0 0 300 67.78524" xmlns="http://www.w3.org/2000/svg">
+   <path d="m17.78523 53.691277h6.37584v13.87024h2.23714v-13.87024h6.37584v-1.789711h-14.98882zm23.37808 2.23713c-2.01342 0-3.69127.783-4.80984 2.46085v-6.487691h-2.12528v15.659951h2.12528v-5.14541c0-3.57942 2.23713-4.9217 4.47427-4.9217 2.01342 0 3.46756 1.11857 3.46756 3.91499v6.26398h2.12528v-6.37584c0-3.69127-2.12528-5.36913-5.25727-5.36913m10.51454 4.80985c.33557-2.46085 1.90157-3.57942 4.1387-3.57942 1.90157 0 3.80314 1.00671 3.91499 3.57942zm4.1387-5.03356c-4.02684 0-6.48769 2.12528-6.48769 6.26398 0 3.57942 2.34899 5.81656 6.37584 5.81656 2.79642 0 5.48098-1.00671 5.92841-3.80313h-2.34899c-.44743 1.56599-1.78971 2.23713-3.69128 2.23713-2.57271 0-3.91499-1.67785-4.1387-3.91499h10.40268v-.67114c.11186-3.80313-2.01342-5.92841-6.04027-5.92841zm85.57047 2.46085l-.11185-2.23714h-2.12528c.11185.89486.11185 1.67786.11185 2.57271v8.61298h2.12528v-5.36913c0-2.79642 1.23043-4.1387 3.91499-4.1387.44743 0 .89486 0 1.67786.22371v-2.01342c-.33557 0-.55929-.11186-1.34229-.11186-2.01342 0-3.3557 1.11857-4.25056 2.46085m65.88367 0l-.11185-2.23714h-2.12528c.11185.89486.11185 1.67786.11185 2.57271v8.61298h2.23714v-5.36913c0-2.79642 1.23043-4.1387 3.91499-4.1387.44743 0 .89485 0 1.67785.22371v-2.01342c-.33557 0-.55928-.11186-1.34228-.11186-2.12528 0-3.57942 1.11857-4.36242 2.46085m-90.71588 7.15884l-3.91499-9.61969h-2.79642l-3.80313 9.61969-3.57942-9.61969h-2.46085l4.47427 11.18568h2.90828l3.69128-9.50783 3.91498 9.50783h2.79642l4.36242-11.18568h-2.23714zm-38.81432-5.48099h-4.58613v-6.26398h4.47428c3.02013 0 4.02684 1.11857 4.02684 2.90828 0 2.23713-1.00671 3.3557-3.91499 3.3557m-.11185-7.941831h-6.71141v15.659951h2.23713v-5.92841h4.80985c4.1387 0 6.15212-2.12528 6.15212-5.03355 0-2.68457-1.67785-4.697991-6.48769-4.697991m14.09396 14.317671c-3.02014 0-4.58613-2.01342-4.58613-4.47427 0-2.68456 1.56599-4.47427 4.58613-4.47427 3.13199 0 4.69798 1.90156 4.69798 4.47427 0 2.46085-1.56599 4.47427-4.69798 4.47427m0-10.51454c-4.47428 0-6.93513 2.46085-6.93513 6.04027 0 3.80313 2.46085 6.04027 6.93513 6.04027 4.58612 0 6.93512-2.12528 6.93512-6.04027.11185-3.80313-2.23714-6.04027-6.93512-6.04027m34.67561 5.03356c.33557-2.46085 1.90157-3.57942 4.1387-3.57942 1.90157 0 3.80313 1.00671 3.80313 3.57942zm4.1387-5.03356c-4.02684 0-6.48769 2.12528-6.48769 6.26398 0 3.57942 2.34899 5.81656 6.37584 5.81656 2.79642 0 5.48098-1.00671 5.92841-3.80313h-2.23714c-.44743 1.56599-1.78971 2.23713-3.69127 2.23713-2.57271 0-3.91499-1.67785-4.13871-3.91499h10.40269v-.67114c0-3.80313-2.23714-5.92841-6.15213-5.92841zm86.91275 5.03356c.33557-2.46085 1.90157-3.57942 4.13871-3.57942 1.90156 0 3.80313 1.00671 3.80313 3.57942zm4.25056-5.03356c-4.02684 0-6.48769 2.12528-6.48769 6.26398 0 3.57942 2.34899 5.81656 6.37584 5.81656 2.79642 0 5.48098-1.00671 5.92841-3.80313h-2.23714c-.44743 1.56599-1.78971 2.23713-3.69127 2.23713-2.57271 0-3.91499-1.67785-4.13871-3.91499h10.40269v-.67114c-.11186-3.80313-2.23714-5.92841-6.15213-5.92841zm-50.55928-.783v.44743h-2.79642v1.566h2.79642v9.73154h2.23714v-9.73154h4.47427v-1.566h-4.47427v-.89485c0-1.789714.78299-2.348998 2.46085-2.348998.55928 0 1.34228.111857 2.34899.335571v-1.565996c-.783-.111857-1.67785-.223714-2.79642-.223714-3.24385-.111856-4.25056 1.677853-4.25056 4.250557m-10.96197 11.29754c-3.02013 0-4.69799-2.01342-4.69799-4.47427 0-2.68456 1.67786-4.47427 4.69799-4.47427 3.13199 0 4.69799 1.90156 4.69799 4.47427 0 2.46085-1.67785 4.47427-4.69799 4.47427m0-10.51454c-4.47427 0-6.93512 2.46085-6.93512 6.04027 0 3.80313 2.46085 6.04027 6.93512 6.04027 4.47427 0 6.93512-2.12528 6.93512-6.04027 0-3.80313-2.34899-6.04027-6.93512-6.04027m100.11186 0c-2.349 0-3.80313 1.566-4.36242 2.79642-.67114-1.90156-2.34899-2.79642-4.02684-2.79642-1.566 0-3.132.783-4.13871 2.46085l-.11185-2.01342h-2.01343c.11186.89485.11186 1.67785.11186 2.5727v8.61298h2.23714v-5.36913c0-3.3557 1.90156-4.69798 3.57942-4.69798 1.7897 0 2.68456 1.23042 2.68456 4.36241v5.7047h2.12528v-5.36913c0-3.91499 2.46085-4.69798 3.57942-4.69798 2.23713 0 2.79642 1.45413 2.79642 4.47427v5.59284h2.23713v-6.4877c-.11185-3.69127-2.01342-5.14541-4.69798-5.14541m15.65995 5.48098l-3.69127-.78299c-1.67785-.33557-2.349-.67114-2.349-1.566 0-1.11857 1.34229-1.67785 3.24385-1.67785 1.566 0 3.02014.44743 3.13199 1.78971h2.23714c0-2.68457-2.90828-3.35571-5.36913-3.35571-2.90827 0-5.48098 1.00672-5.48098 3.46757 0 1.7897 1.34228 2.46085 3.02013 2.90827l3.46756.783c1.23043.22371 2.46085.55928 2.46085 1.566 0 1.23042-1.23042 1.90156-3.69127 1.90156-2.01342 0-3.35571-.55928-3.57942-2.12528h-2.34899c.22371 2.57271 2.5727 3.57942 5.7047 3.57942 4.25055 0 6.15212-1.23042 6.15212-3.57942.11186-1.67785-.89485-2.46085-2.90828-2.90828m-82.21476 4.69799h-4.1387v-12.30425h3.80313c5.59284 0 6.93512 2.12528 6.93512 6.15213 0 3.24384-1.23042 6.15212-6.59955 6.15212m.22371-13.982101h-6.59955v15.659951h6.71141c5.48098 0 8.61297-2.79642 8.61297-7.82997 0-5.03356-2.68456-7.829981-8.72483-7.829981m45.97316 10.402681c0 2.68457-1.566 3.91499-4.25056 3.91499-2.12528 0-3.02014-.89485-3.02014-2.12528 0-2.46085 4.36242-2.23713 6.04027-2.23713h1.11857v.44742zm2.12528-2.68456c0-2.68456-2.23714-3.91499-5.36913-3.91499-2.46085 0-5.25727.67114-5.48099 3.35571h2.349c.11185-1.11857 1.23042-1.90157 3.24384-1.90157 1.90157 0 3.24385.67114 3.24385 2.68456v.44743h-1.23042c-2.57271 0-8.27741-.22371-8.27741 3.69128 0 2.23713 1.90157 3.69127 4.69799 3.69127 2.23714 0 3.57942-.22371 4.80984-1.90157l.11186 1.566h2.01342c-.11185-.67114-.11185-1.34228-.11185-2.12528z" fill="#020303" stroke-width="1.11856818"/>
+   <path d="m34.56376 5.816554l4.58613.559284c2.01342.223714 2.23713 1.901566 2.23713 3.020135v5.369127h-20.91722v-5.369127c0-1.118569.22371-2.796421 2.23714-3.020135l4.58612-.559284v-4.586129h-27.29306v4.586129l4.58613.559284c2.01342.223714 2.23714 1.901566 2.23714 3.020135v17.673378c0 1.118568-.22372 2.79642-2.23714 3.020134l-4.58613.671141v4.58613h27.18121v-4.58613l-4.58613-.559284c-2.01342-.223714-2.23714-1.901566-2.23714-3.020134v-5.369128h20.91723v5.369128c0 1.118568-.22372 2.79642-2.23714 3.020134l-4.58613.559284v4.58613h27.18121v-4.58613l-4.58613-.559284c-2.01342-.223714-2.23714-1.901566-2.23714-3.020134v-17.785235c0-1.118569.22372-2.796421 2.23714-3.020135l4.58613-.559284v-4.586129h-27.18121v4.586129zm179.30649 23.042506h-11.4094v-21.029083h11.4094c6.71141 0 8.94854 3.243848 8.94854 10.514542 0 7.270693-2.23713 10.514541-8.94854 10.514541m2.46085-27.628635h-33.55705v4.586129l4.02684.447428c1.45414.223713 2.349.782997 2.349 2.79642v18.120806c0 1.118568-.22372 2.79642-2.23714 3.020134l-4.58613.559284v4.58613h34.00448c12.19239 0 22.14765-4.921701 22.14765-17.114094 0-12.080537-10.06712-17.002237-22.14765-17.002237" fill="#c00" stroke-width="1.11856818"/>
+   <path d="m257.15884 18.903803l6.48769-10.514542 6.82327 10.514542zm38.14317 11.409396c-2.12528-.223714-2.79642-1.677853-3.46756-2.684564l-15.65995-24.049217c-1.11857-1.677852-1.90157-2.237137-3.57942-2.237137h-25.72707v4.58613l6.15212.671141c.89486.111857 2.01343 1.230425 1.11857 2.908278l-11.52125 18.903803c-.44743.782997-1.00671 1.677852-2.34899 1.789709l-4.58613.559284v4.58613h21.70022v-4.58613l-3.69127-.335571c-1.566-.223713-2.46085-1.342281-1.67786-2.572706l1.78971-2.796421h20.80537l1.566 2.348993c1.34228 2.12528-.33557 2.908278-1.78971 3.131991l-3.80313.447428v4.586129h29.41834v-4.809843zm-137.13646-24.496645l4.58613.559284c2.01342.223714 2.23713 1.901566 2.23713 3.020135v17.114094l-18.00894-23.825504c-.783-1.118568-1.45414-1.454138-3.46757-1.454138h-23.26621v4.586129l4.58612.559284c2.01343.223714 2.23714 1.901566 2.23714 3.020135v17.673378c0 1.118568-.22371 2.79642-2.23714 3.020134l-4.58612.559284v4.58613h21.70022v-4.474273l-4.58613-.559284c-2.01342-.223714-2.23714-1.901566-2.23714-3.020134v-17.114094l18.00895 23.825503c.783 1.118568 1.566 1.454139 3.46756 1.454139h16.44296v-25.950783c0-1.118569.22371-2.796421 2.23713-3.020135l4.58613-.559284v-4.586129h-21.70022zm-67.1141 24.161074c-8.61297 0-12.08053-3.579418-12.08053-11.744966 0-8.165548 3.57942-11.744967 12.08053-11.744967 8.61298 0 12.08054 3.579419 12.08054 11.744967.11186 8.053691-3.46756 11.744966-12.08054 11.744966m0-29.977628c-22.03579 0-27.74049 9.731543-27.74049 18.232662 0 8.501118 5.7047 18.232662 27.74049 18.232662 22.0358 0 27.7405-9.731544 27.7405-18.232662.11185-8.501119-5.59284-18.232662-27.7405-18.232662" fill="#c00" stroke-width="1.11856818"/>
+</svg></span>
+          </li>
+          <li class="work" data-title="Yara Fertilizantes" data-cat="E-commerce" data-year="2023" data-restrito data-desc="O desafio de conduzir a equipe de Design no redesenho da homepage do e-commerce &lt;b&gt;&lt;i&gt;comprar.yara&lt;/i&gt;&lt;/b&gt;.">
+            <button class="work__btn" type="button"><span class="work__media"><img src="assets/img/case-yara.jpg" alt="Produtor rural caminhando por uma lavoura de soja"></span><span class="work__n">02</span></button>
+            <span class="work__logo" hidden><svg viewBox="0 0 70.9 70.9" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Yara"><path fill="#003e7e" d="M69.2 66c0 1.7-1.4 3.2-3.2 3.2H4.8c-1.7 0-3.2-1.4-3.2-3.2V4.8c0-1.7 1.4-3.2 3.2-3.2H66c1.7 0 3.2 1.4 3.2 3.2V66z"></path><path fill="#ffffff" d="M41.3 56.5h-2.7v-3.4h2.7c1.1 0 1.7.5 1.7 1.7.1 1.1-.5 1.7-1.7 1.7m2.3 1.7c1.5-.6 2.3-1.7 2.3-3.4v-.3c-.1-2.3-1.9-3.4-4.1-3.4h-5.9v11.7h2.8v-4.2h2l2.1 4.2h3.1l-2.3-4.6M21.2 51H18l-1.9 5.1-2.2-3.8c-.4-.7-1.4-1.3-2.3-1.3H10l4.8 8.4-1.2 3.3h1.6c.8 0 1.7-.6 2-1.4l4-10.3zM30.2 59.6l1.2 3.1h3l-3.9-10.3c-.3-.8-1.2-1.4-2-1.4h-3.4l-4.4 11.7h1.5c.8 0 1.7-.6 2-1.4l.6-1.7h5.4m-.7-2h-4l1.7-4.4c.2-.5.5-.5.6 0l1.7 4.4M51 59.6h5.4l.6 1.7c.3.8 1.2 1.4 2 1.4h1.5L56.1 51h-3.4c-.8 0-1.7.6-2 1.4l-3.9 10.3h3l1.2-3.1m2.4-6.4c.2-.5.5-.5.6 0l1.7 4.4h-4l1.7-4.4"></path><path fill="#ffffff" fill-rule="evenodd" clip-rule="evenodd" d="M39.3 33.9c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.4-3-3-3m-7.6 0c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.4-3-3-3m15.2 0c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3m-22.9 0c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3m35.4 4.6c-.8-1.6-2.2-4.3-2.4-5.2 0 0-.8-2.1 1.4-2.4.9-.1 1.6-.8 1.6-1.7v-1c0-.1-.1-.3-.3-.3h-3.6c-.1 0-2.6.3-2.6 3.3-.1 5.2 0 5.9-1.4 6.1-.1 0-.2-.1-.2-.2v-.2c0-2.8-2.2-5-5-5-1.4 0-2.7.6-3.6 1.5 0 .1-.1.1-.2.1s-.2-.1-.2-.1c-.9-.9-2.2-1.5-3.6-1.5s-2.7.6-3.6 1.5c0 .1-.1.1-.2.1s-.2-.1-.2-.1c-.9-.9-2.2-1.5-3.6-1.5s-2.7.6-3.6 1.5c0 .1-.1.1-.2.1s-.2-.1-.2-.1c-.9-.9-2.2-1.5-3.6-1.5-2.8 0-5 2.2-5 5v.2c0 .1-.1.2-.3.2-1.4-.2-1.3-.9-1.4-6.1 0-3-2.5-3.3-2.6-3.3h-3.6c-.1 0-.3.1-.3.3v1c0 .9.7 1.6 1.6 1.7 2.2.3 1.4 2.4 1.4 2.4-.3.9-1.6 3.6-2.4 5.2-.5 1-1.5 3.6.1 6.1.9 1.4 2 2.8 5.9 2.7h36c3.9.1 5-1.3 5.9-2.7 1.5-2.5.5-5 0-6.1m-25.1-9.1c.1.1.5.1.8.1h5.1c-2.6-2.3-4.2-8-4.2-11.4 0-3.5 1.6-9.2 4.2-11.4h-5.1c-.3 0-.7 0-.8.1 0 0-4.6 4.5-4.6 11.3.1 6.9 4.6 11.3 4.6 11.3m11.1 0c.1.1.5.1.8.1h5.1c-2.6-2.3-4.2-8-4.2-11.4 0-3.5 1.6-9.2 4.2-11.4h-5.1c-.3 0-.7 0-.8.1 0 0-4.6 4.4-4.6 11.3s4.6 11.3 4.6 11.3M18.7 18.1c0-6.9 4.6-11.3 4.6-11.3.1-.1.5-.1.8-.1h5.1C26.6 9 25 14.7 25 18.1c0 3.5 1.6 9.1 4.2 11.4h-5.1c-.3 0-.7 0-.8-.1 0 0-4.6-4.4-4.6-11.3"></path></svg></span>
+          </li>
+          <li class="work" data-title="Simplex Marketplace" data-cat="Pesquisa, Problem Solution Fit" data-year="2022" data-restrito data-desc="Validando hipóteses de negócio no contexto do comércio digital de saúde através do Design e da experimentação.">
+            <button class="work__btn" type="button"><span class="work__media"><img src="assets/img/case-simplex.jpg" alt="Profissional de compras analisando uma tela no computador"></span><span class="work__n">03</span></button>
+          </li>
+          <li class="work" data-title="Greentable" data-cat="Produto digital" data-year="2024" data-soon data-desc="Integrando em um ecossistema os serviços digitais voltados para alimentação de qualidade.">
+            <button class="work__btn" type="button"><span class="work__media"><img src="assets/img/case-greentable.jpg" alt="Cliente retirando um pedido embalado em um restaurante"></span><span class="work__n">04</span></button>
+            <span class="work__logo" hidden><img class="logo--h24" src="assets/img/logo-greentable.png" alt="Greentable"></span>
+          </li>
+          <li class="work" data-title="Site ESAMC" data-cat="Pesquisa e Arquitetura da Informação" data-year="2022" data-soon data-desc="Repensando a experiência de inscrições de alunos e vestibulandos e o design do site de uma instituição de ensino renomada.">
+            <button class="work__btn" type="button"><span class="work__media"><img src="assets/img/case-esamc.jpg" alt="Estudante em um notebook, sentada a uma mesa"></span><span class="work__n">05</span></button>
+            <span class="work__logo" hidden><img class="logo--h24" src="assets/img/logo-esamc.png" alt="ESAMC"></span>
+          </li>
+        </ul>
+      </div>
+
+        <button class="chev chev--prev" type="button" aria-label="Trabalho anterior">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4 L7 12 L15 20" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"/></svg>
+        </button>
+        <button class="chev chev--next" type="button" aria-label="Próximo trabalho">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4 L17 12 L9 20" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"/></svg>
+        </button>
+
+        <div class="case" data-case>
+          <span class="case__logo" data-case-logo></span>
+          <h3 class="case__title" data-case-title>Nome do projeto</h3>
+          <p class="case__text" data-case-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <a class="case__link" href="#">Ler case completo</a>
+          <span class="case__soon" data-case-soon hidden>Em breve</span>
+        </div>
+
+      </div>
+
+      <p class="cap cap--bottom" data-meta-bottom>
+        <b data-cat>Produto digital</b>
+        <span data-year>2026</span>
+      </p>
+
+    </div>
+
+    <div class="showcase__foot">
+      <h2 class="showcase__title">Meus trabalhos</h2>
+      <p class="counter"><b data-current>01</b> / <span data-total>06</span></p>
+    </div>
+
+     </div>
+    </div>
+   </div>
+  </section>
+
+
+  <!-- ===== manifesto ===== -->
+  <section class="manifesto" id="manifesto" data-reveal="right">
+
+    <div class="manifesto__text">
+      <h2 class="manifesto__title"><span>Mani</span><span>festo</span></h2>
+      <div class="manifesto__body">
+        <p>Todo produto é uma expressão tangível de um sistema. Pessoas, regras, incentivos e histórias que já estavam ali antes de qualquer tela existir.</p>
+        <p>Meu trabalho passa por esse lugar: entender como as partes se afetam antes de propor qualquer coisa. Os problemas que me interessam raramente chegam bem formulados, e reformular a pergunta costuma ser uma aventura recompensadora.</p>
+        <p>Não tenho um método único. Tenho repertório. A abordagem se escolhe pelo problema, pelo tempo que existe, por restrições e pelas pessoas envolvidas. Trabalho para sustentar o valor cocriado.</p>
+      </div>
+      <a class="manifesto__link" href="sobre.html">Me conheça melhor</a>
+    </div>
+
+    <div class="axes" data-axes>
+      <button class="axis is-open" type="button" data-axis style="background:#4fa09a">
+        <img src="assets/img/eixo-01-pensamento-sistemico.jpg" alt="Desenho isométrico em linha sobre fundo verde">
+        <span class="axis__tab">01 &mdash; Pensamento sistêmico</span>
+        <span class="axis__panel">
+          <span class="axis__n">01</span>
+          <span class="axis__title">Pensamento sistêmico</span>
+          <span class="axis__lead">Boas decisões não acontecem isoladas.</span>
+          <span class="axis__text">Antes de desenhar, mapeio relações: o que alimenta o quê, onde o valor se perde, quanto custa cada escolha. Uma boa solução local não deve prejudicar outras partes e quebrar o sistema.</span>
+        </span>
+      </button>
+      <button class="axis" type="button" data-axis style="background:#48938e">
+        <img src="assets/img/eixo-02-abordagem-por-problema.jpg" alt="Três vigas isométricas cruzadas numa junção central, em linha, sobre fundo verde">
+        <span class="axis__tab">02 &mdash; Abordagem por problema</span>
+        <span class="axis__panel">
+          <span class="axis__n">02</span>
+          <span class="axis__title">Abordagem por problema</span>
+          <span class="axis__lead">Método é um meio, não um fim.</span>
+          <span class="axis__text">Pesquisa densa, experimentação rápida, protótipo de alta fidelidade ou uma conversa bem conduzida. A escolha depende do risco, do prazo e do que ainda não se sabe.</span>
+        </span>
+      </button>
+      <button class="axis" type="button" data-axis style="background:#428281">
+        <img src="assets/img/eixo-03-decisao-cenarios-complexos.jpg" alt="Cubo isométrico em linha com volume destacado, sobre fundo verde">
+        <span class="axis__tab">03 &mdash; Decisão em cenários complexos</span>
+        <span class="axis__panel">
+          <span class="axis__n">03</span>
+          <span class="axis__title">Decisão em cenários complexos</span>
+          <span class="axis__lead">A clareza é um entregável valioso.</span>
+          <span class="axis__text">Em contextos ambíguos, o design serve para separar evidência de opinião, tornar as trocas visíveis e permitir que o time decida sabendo do que está abrindo mão.</span>
+        </span>
+      </button>
+      <button class="axis" type="button" data-axis style="background:#3b7874">
+        <img src="assets/img/eixo-04-oficio-e-craft.jpg" alt="Estrutura isométrica em camadas, em linha, sobre fundo verde">
+        <span class="axis__tab">04 &mdash; Ofício e craft</span>
+        <span class="axis__panel">
+          <span class="axis__n">04</span>
+          <span class="axis__title">Ofício e craft</span>
+          <span class="axis__lead">Craft é uma prática essencial, não um acessório.</span>
+          <span class="axis__text">Trato design como ofício. Conhecer o material pelas mãos, repetir para se tornar preciso, acabamento que todo mundo sente e que dá gosto de usar. Craft é uma forma de respeito por quem usa e por quem constrói junto.</span>
+        </span>
+      </button>
+      <button class="axis" type="button" data-axis style="background:#376c68">
+        <img src="assets/img/eixo-05-design-contextual.jpg" alt="Plano e viga isométricos se atravessando, em linha, sobre fundo verde">
+        <span class="axis__tab">05 &mdash; Design contextual</span>
+        <span class="axis__panel">
+          <span class="axis__n">05</span>
+          <span class="axis__title">Design contextual</span>
+          <span class="axis__lead">Soluções &ldquo;universais&rdquo; podem ser armadilhas.</span>
+          <span class="axis__text">O que funciona em um lugar costuma falhar em outro, e a diferença não está no produto, mas no que o cerca. Cultura, infraestrutura, incentivos, o que as pessoas já resolvem sozinhas do seu próprio jeito. O bom design considera o contexto.</span>
+        </span>
+      </button>
+    </div>
+
+  </section>
+
+<!-- ===== rodapé ===== -->
+  <footer class="footer" id="contato" data-reveal="up">
+
+    <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <p class="footer__ask">Gostou do meu portfolio e quer me conhecer melhor?</p>
+        <a class="btn" href="mailto:leonardouxexp@gmail.com"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-6 4V6a2 2 0 0 1 2-2zm0 2v10.1L7.4 16H20V6H4z"/></svg>Entre em contato</a>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegação do rodapé">
+        <a href="#">Início</a>
+        <a href="trabalhos.html">Trabalhos</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="#" data-open-drawer>Contato</a>
+      </nav>
+    </div>
+
+    <p class="footer__name">Leonardo Silva</p>
+    </div>
+
+  </footer>
+
+
+<!-- ===== gaveta de contato ===== -->
+  <div class="scrim" data-scrim hidden></div>
+
+  <aside class="drawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="drawer-titulo" hidden>
+    <div class="drawer__head">
+      <h2 class="drawer__title" id="drawer-titulo">Contato</h2>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Fechar contato">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </div>
+
+    <!-- Para receber os envios, troque o action por um endpoint (Formspree, Basin, Netlify Forms...) -->
+    <form class="drawer__form" action="https://formspree.io/f/SEU_ID" method="post">
+      <div class="field">
+        <label for="c-nome">Nome</label>
+        <input id="c-nome" name="nome" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="c-tel">Telefone</label>
+        <input id="c-tel" name="telefone" type="tel" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="c-email">E-mail</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="c-motivo">Motivo</label>
+        <input id="c-motivo" name="motivo" type="text">
+      </div>
+      <div class="field">
+        <label for="c-msg">Mensagem</label>
+        <textarea id="c-msg" name="mensagem" rows="3"></textarea>
+      </div>
+
+      <p class="drawer__note">
+        Nunca vou compartilhar suas informações. Ao enviar, você concorda com a
+        <a href="#">política de privacidade</a>.
+      </p>
+
+      <div class="drawer__foot">
+        <button class="drawer__send" type="submit">Enviar</button>
+        <p class="drawer__where">
+          Brasil<br>
+          leonardouxexp@gmail.com
+        </p>
+      </div>
+    </form>
+  </aside>
+
+<!-- ===== gaveta de projeto restrito (NDA) ===== -->
+<!-- Compartilha o véu com a gaveta de contato: só uma abre por vez. -->
+  <aside class="drawer" data-drawer-nda role="dialog" aria-modal="true" aria-labelledby="nda-titulo" hidden>
+    <div class="drawer__head">
+      <h2 class="drawer__title" id="nda-titulo">Projeto restrito</h2>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Fechar aviso de projeto restrito">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </div>
+
+    <p class="nda__tag" data-nda-projeto>Nome do projeto</p>
+
+    <p class="nda__lead">
+      Este case está sob acordo de confidencialidade e não pode ficar
+      publicado abertamente na web.
+    </p>
+
+    <p class="nda__text">
+      Se quiser conhecer o processo, as decisões de design e os resultados,
+      me chame no LinkedIn: apresento o material em uma conversa.
+    </p>
+
+    <div class="nda__foot">
+      <a class="nda__cta" href="https://www.linkedin.com/in/lasdesign/" target="_blank" rel="noopener noreferrer">
+        Falar comigo no LinkedIn
+      </a>
+      <p class="nda__where">
+        Brasil<br>
+        leonardouxexp@gmail.com
+      </p>
+    </div>
+  </aside>
+
+  <script src="assets/js/home.js"></script>
+</body>
+</html>
